@@ -1,64 +1,41 @@
-# oneR Package Installation and Usage Guide (Author: Bright Boamah)
+# oneR: Automated Statistical Testing with Normality Assessment
 
-## Package Overview
+[![R](https://img.shields.io/badge/R-%3E%3D3.5.0-blue.svg)](https://www.r-project.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-The oneR package has been successfully created and tested. It provides automated statistical testing with intelligent test selection based on normality assessment. All core functionality has been implemented and thoroughly tested with a 100% success rate.
+## Overview
 
-## Package Contents
+The `oneR` package provides automated statistical testing by intelligently selecting between parametric and non-parametric tests based on normality assessment. It streamlines the statistical analysis workflow while maintaining statistical rigor and providing comprehensive documentation.
 
-### Core Files
-- **DESCRIPTION**: Package metadata and dependencies
-- **NAMESPACE**: Exported functions and imports
-- **LICENSE**: MIT license file
-- **README.md**: Comprehensive package documentation
+## Key Features
 
-### R Code (R/ directory)
-- **oneR_test.R**: Main statistical testing function
-- **methods.R**: Print, summary, and utility methods
-- **plotting.R**: Visualization functions (requires ggplot2, gridExtra)
-- **reporting.R**: PDF report generation (requires knitr, rmarkdown)
+- **🤖 Automated Test Selection**: Chooses appropriate tests based on Shapiro-Wilk normality assessment
+- **📊 Comprehensive Visualization**: Generates normality plots and test result visualizations
+- **📄 PDF Reporting**: Creates detailed analysis reports with all components
+- **🔧 Flexible Interface**: Supports one-sample, two-sample, and paired tests
+- **📈 Statistical Rigor**: Uses established statistical methods with proper implementation
 
-### Documentation (man/ directory)
-- **oneR-package.Rd**: Package documentation
+## Installation
 
-### Vignettes (vignettes/ directory)
-- **oneR-guide.Rmd**: Comprehensive user guide and tutorial
-
-### Tests and Demos
-- **demo_script.R**: Working demonstration script
-- **test_suite.R**: Comprehensive test suite (21 tests, 100% pass rate)
-- **demo_plots.png**: Example visualization output
-
-## Installation Instructions
-
-### Option 1: Install from Source (Recommended)
+### From Source
 
 ```r
-# First, install required dependencies
+# Install required dependencies
 install.packages(c("ggplot2", "gridExtra", "knitr", "rmarkdown"))
 
 # Install oneR package from source
-install.packages("path/to/oneR", repos = NULL, type = "source")
+# (Replace with actual installation method when available)
 ```
 
-### Option 2: Load Functions Directly
+### Dependencies
 
-```r
-# Navigate to the oneR directory and source the functions
-setwd("path/to/oneR")
-source("R/oneR_test.R")
-source("R/methods.R")
+- R (>= 3.5.0)
+- ggplot2
+- gridExtra
+- knitr
+- rmarkdown
 
-# For plotting (requires ggplot2, gridExtra)
-source("R/plotting.R")
-
-# For reporting (requires knitr, rmarkdown)
-source("R/reporting.R")
-```
-
-## Quick Start Examples
-
-### Basic Usage
+## Quick Start
 
 ```r
 library(oneR)
@@ -74,166 +51,166 @@ group1 <- rnorm(25, mean = 10, sd = 3)
 group2 <- rnorm(25, mean = 12, sd = 3)
 comparison <- oneR_test(group1, group2)
 summary(comparison)
+
+# Example 3: Generate visualizations
+plot(comparison, type = "both")
+
+# Example 4: Create PDF report
+oneR_report(comparison, "analysis_report.pdf")
 ```
 
-### Advanced Features
+## How It Works
 
-```r
-# Custom parameters
-result <- oneR_test(
-  x = data,
-  mu = 4.5,
-  alternative = "greater",
-  alpha = 0.01,
-  conf.level = 0.99
-)
-
-# Paired test
-before <- c(85, 87, 82, 90, 88, 86, 84, 89)
-after <- c(88, 90, 85, 92, 91, 89, 87, 91)
-paired_result <- oneR_test(before, after, paired = TRUE)
-
-# Extract results as data frame
-results_df <- extract_results(paired_result)
-```
-
-### Visualization
-
-```r
-# Generate normality assessment plots
-plot_normality(result)
-
-# Generate test results plots
-plot_results(comparison)
-
-# Use integrated plotting
-plot(result, type = "both")
-```
-
-### PDF Report Generation
-
-```r
-# Basic report
-oneR_report(result, "analysis_report.pdf")
-
-# Customized report
-oneR_report(
-  comparison,
-  output_file = "detailed_analysis.pdf",
-  title = "Statistical Analysis Report",
-  author = "Research Team",
-  include_data = TRUE
-)
-```
+1. **Normality Assessment**: Uses Shapiro-Wilk test to assess data normality
+2. **Intelligent Test Selection**:
+   - If data is normal → Parametric tests (t-tests)
+   - If data is non-normal → Non-parametric tests (Wilcoxon tests)
+3. **Comprehensive Output**: Provides test results, visualizations, and interpretations
+4. **Professional Reporting**: Generates detailed PDF reports with all analysis components
 
 ## Function Reference
 
-### Main Functions
+### Core Functions
 
 | Function | Description |
 |----------|-------------|
-| `oneR_test()` | Main automated statistical testing function |
+| `oneR_test()` | Main function for automated statistical testing |
 | `oneR_report()` | Generate comprehensive PDF reports |
 | `plot_normality()` | Create normality assessment plots |
 | `plot_results()` | Create test results visualizations |
-| `extract_results()` | Extract key results as data frame |
 
 ### Methods
 
 | Method | Description |
 |--------|-------------|
 | `print.oneR()` | Display oneR results |
-| `summary.oneR()` | Detailed summary of results |
-| `plot.oneR()` | Integrated plotting method |
+| `summary.oneR()` | Detailed summary of oneR results |
+| `plot.oneR()` | Plot oneR results |
+| `extract_results()` | Extract key results as data frame |
 
 ## Arguments Guide
 
 ### oneR_test() Parameters
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `x` | numeric | Required | Primary data vector |
-| `y` | numeric | NULL | Second group for two-sample tests |
-| `mu` | numeric | 0 | Hypothesized mean for one-sample tests |
-| `alternative` | character | "two.sided" | Alternative hypothesis |
-| `alpha` | numeric | 0.05 | Significance level for normality testing |
-| `conf.level` | numeric | 0.95 | Confidence level for the test |
-| `paired` | logical | FALSE | Whether to perform paired test |
+| Parameter | Description | Default | Options |
+|-----------|-------------|---------|---------|
+| `x` | Primary data vector | Required | Numeric vector |
+| `y` | Second group (optional) | `NULL` | Numeric vector |
+| `mu` | Hypothesized mean | `0` | Numeric value |
+| `alternative` | Alternative hypothesis | `"two.sided"` | `"two.sided"`, `"less"`, `"greater"` |
+| `alpha` | Significance level for normality | `0.05` | 0 < α < 1 |
+| `conf.level` | Confidence level for test | `0.95` | 0 < level < 1 |
+| `paired` | Paired test indicator | `FALSE` | `TRUE`/`FALSE` |
 
-### Alternative Hypothesis Options
-- `"two.sided"`: Two-tailed test (default)
-- `"greater"`: One-tailed test (greater than)
-- `"less"`: One-tailed test (less than)
+### oneR_report() Parameters
 
-## Test Selection Logic
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `oneR_result` | oneR test result object | Required |
+| `output_file` | Output PDF file path | `"oneR_report.pdf"` |
+| `title` | Report title | `"Statistical Analysis Report"` |
+| `author` | Report author | `"oneR Package"` |
+| `include_data` | Include raw data in report | `FALSE` |
 
-The package automatically selects appropriate tests based on normality assessment:
+## Examples
+
+### Clinical Trial Analysis
+
+```r
+# Simulate clinical trial data
+set.seed(2024)
+placebo <- rnorm(50, mean = 120, sd = 15)
+treatment <- rnorm(50, mean = 110, sd = 15)
+
+# Perform analysis
+analysis <- oneR_test(placebo, treatment)
+
+# Generate report
+oneR_report(
+  analysis,
+  "clinical_trial.pdf",
+  title = "Treatment Efficacy Analysis",
+  author = "Research Team"
+)
+```
+
+### Quality Control Testing
+
+```r
+# Manufacturing measurements
+measurements <- c(50.1, 49.8, 50.3, 49.9, 50.2, 50.0, 49.7, 50.4)
+
+# Test against specification
+qc_result <- oneR_test(measurements, mu = 50.0)
+print(qc_result)
+```
+
+### Paired Analysis
+
+```r
+# Before/after measurements
+before <- c(85, 87, 82, 90, 88, 86, 84, 89)
+after <- c(88, 90, 85, 92, 91, 89, 87, 91)
+
+# Paired test
+paired_analysis <- oneR_test(before, after, paired = TRUE)
+plot(paired_analysis)
+```
+
+## Statistical Methodology
+
+### Test Selection Logic
 
 ```
 Data Input
     ↓
 Shapiro-Wilk Normality Test
     ↓
-All groups normal? ──→ Yes ──→ Parametric Tests
-    ↓                          • One-sample t-test
-    No                         • Two-sample t-test
-    ↓                          • Paired t-test
+Normal Data? ──→ Yes ──→ Parametric Tests
+    ↓                    • One-sample t-test
+    No                   • Two-sample t-test
+    ↓                    • Paired t-test
 Non-parametric Tests
-• Wilcoxon signed-rank test
-• Wilcoxon rank-sum test
+• Wilcoxon signed-rank
+• Wilcoxon rank-sum
 ```
+
+### Supported Tests
+
+**Parametric Tests:**
+- One-sample t-test
+- Two-sample t-test (independent)
+- Paired t-test
+
+**Non-parametric Tests:**
+- Wilcoxon signed-rank test (one-sample & paired)
+- Wilcoxon rank-sum test (two-sample)
 
 ## Output Components
 
 ### oneR Object Contains:
-- **normality_x/normality_y**: Shapiro-Wilk test results
-- **is_normal**: Boolean indicating if normality assumption is met
-- **test_used**: Name of the statistical test performed
-- **test_result**: Complete test results with p-values and confidence intervals
-- **recommendation**: Plain language interpretation
-- **data_x/data_y**: Original data for plotting and reporting
-- **parameters**: All test parameters used
+- Normality test results (Shapiro-Wilk)
+- Selected statistical test information
+- Complete test results with p-values and confidence intervals
+- Data summaries and recommendations
+- Original data for plotting and reporting
 
 ### Generated Reports Include:
-1. Executive summary with key findings
-2. Data overview and descriptive statistics
-3. Detailed normality assessment
-4. Statistical test results and interpretation
-5. Comprehensive visualizations
-6. Conclusions and recommendations
-7. Technical details and methodology
-8. Raw data (optional)
-
-## Validation and Testing
-
-The package has been thoroughly tested with:
-- **21 comprehensive tests** covering all functionality
-- **100% success rate** on all test cases
-- **Edge case handling** for insufficient data, missing values, etc.
-- **Error validation** for invalid inputs
-- **Multiple data types** and sample sizes
-
-## Dependencies
-
-### Required (Base R)
-- stats
-- graphics
-- grDevices
-- utils
-
-### Optional (Enhanced Features)
-- **ggplot2**: Advanced plotting capabilities
-- **gridExtra**: Multi-panel plot arrangements
-- **knitr**: Report generation
-- **rmarkdown**: PDF/HTML report output
+- Executive summary with key findings
+- Data overview and descriptive statistics
+- Detailed normality assessment
+- Statistical test results and interpretation
+- Comprehensive visualizations
+- Conclusions and recommendations
+- Technical details and methodology
 
 ## Best Practices
 
-1. **Sample Size**: Minimum 3 observations required; 10-15 recommended
-2. **Data Quality**: Remove missing values and check for outliers
-3. **Multiple Comparisons**: Adjust significance levels when appropriate
+1. **Sample Size**: Minimum 3 observations required; 10-15 recommended for reliable normality assessment
+2. **Data Quality**: Remove missing values and check for outliers before analysis
+3. **Multiple Comparisons**: Adjust significance levels when performing multiple tests
 4. **Effect Size**: Consider practical significance alongside statistical significance
-5. **Assumptions**: Verify test assumptions are met for your data
+5. **Assumptions**: Verify test assumptions are met for your specific data
 
 ## Troubleshooting
 
@@ -244,25 +221,36 @@ The package has been thoroughly tested with:
 - Remove missing values: `data[!is.na(data)]`
 
 **PDF generation fails**
-- Install required packages: `install.packages(c("rmarkdown", "knitr"))`
 - Package automatically falls back to HTML reports
+- Install required packages: `install.packages(c("rmarkdown", "knitr"))`
 
 **Plots not displaying**
-- Install plotting packages: `install.packages(c("ggplot2", "gridExtra"))`
 - Reset graphics: `dev.off()`
+- Try specific plot types: `plot(result, type = "normality")`
 
-## Support and Citation
+## Contributing
 
-For questions or issues, refer to the comprehensive documentation in the vignettes directory or the README.md file.
-
-If you use oneR in your research, please cite:
-```
-oneR: Automated Statistical Testing with Normality Assessment (2025)
-Manus AI
-R package version 1.0.0
-```
+We welcome contributions to the oneR package! Please feel free to submit issues, feature requests, or pull requests.
 
 ## License
 
-This package is released under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Citation
+
+If you use oneR in your research, please cite:
+
+```
+oneR: Automated Statistical Testing with Normality Assessment (2025)
+Bright Boamah
+R package version 1.0.0
+```
+
+## Support
+
+For questions, issues, or feature requests, please contact the development team or submit an issue on the project repository.
+
+---
+
+**oneR** - Making statistical testing smarter, one test at a time! 🎯
 
