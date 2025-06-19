@@ -51,12 +51,6 @@ group1 <- rnorm(25, mean = 10, sd = 3)
 group2 <- rnorm(25, mean = 12, sd = 3)
 comparison <- oneR_test(group1, group2)
 summary(comparison)
-
-# Example 3: Generate visualizations
-plot(comparison, type = "both")
-
-# Example 4: Create PDF report
-oneR_report(comparison, "analysis_report.pdf")
 ```
 
 ## How It Works
