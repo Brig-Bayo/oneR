@@ -35,24 +35,6 @@ install.packages(c("ggplot2", "gridExtra", "knitr", "rmarkdown"))
 - knitr
 - rmarkdown
 
-## Quick Start
-
-```r
-library(oneR)
-
-# Example 1: One-sample test
-set.seed(123)
-data <- rnorm(30, mean = 5, sd = 2)
-result <- oneR_test(data, mu = 5)
-print(result)
-
-# Example 2: Two-sample test
-group1 <- rnorm(25, mean = 10, sd = 3)
-group2 <- rnorm(25, mean = 12, sd = 3)
-comparison <- oneR_test(group1, group2)
-summary(comparison)
-```
-
 ## How It Works
 
 1. **Normality Assessment**: Uses Shapiro-Wilk test to assess data normality
