@@ -120,15 +120,15 @@ plot(result, type = "both")
 
 ```r
 # Basic report
-oneR_report(result, "analysis_report.pdf")
+oneR_report_pdf(result, "analysis_report.pdf")
 
 # Customized report
-oneR_report(
+oneR_report_pdf(
   comparison,
   output_file = "detailed_analysis.pdf",
   title = "Statistical Analysis Report",
-  author = "Research Team",
-  include_data = TRUE
+  author = "Your Name",
+  include_data = TRUE #If you want to include raw data
 )
 ```
 
@@ -139,7 +139,7 @@ oneR_report(
 | Function | Description |
 |----------|-------------|
 | `oneR_test()` | Main automated statistical testing function |
-| `oneR_report()` | Generate comprehensive PDF reports |
+| `oneR_report_pdf()` | Generate comprehensive PDF/html reports |
 | `plot_normality()` | Create normality assessment plots |
 | `plot_results()` | Create test results visualizations |
 | `extract_results()` | Extract key results as data frame |
