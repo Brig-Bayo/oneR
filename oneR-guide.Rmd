@@ -196,7 +196,7 @@ Creating comprehensive PDF reports is straightforward:
 ```{r basic-report, eval=FALSE}
 # Generate standard report
 library(latexpdf)
-oneR_report(result, "analysis_report.pdf")
+oneR_report_pdf(result, "analysis_report.pdf")
 ```
 
 ## Customized Reports
