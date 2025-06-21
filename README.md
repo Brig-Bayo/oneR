@@ -111,9 +111,6 @@ plot_normality(result)
 
 # Generate test results plots
 plot_results(comparison)
-
-# Use integrated plotting
-plot(result, type = "both")
 ```
 
 ### PDF Report Generation
