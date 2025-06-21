@@ -1,4 +1,4 @@
-# oneR: Automated Statistical Testing with Normality Assessment by Bright Boamah
+# oneR: Automated Statistical Testing with Normality Assessment
 
 [![R](https://img.shields.io/badge/R-%3E%3D3.5.0-blue.svg)](https://www.r-project.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
